@@ -1,0 +1,165 @@
+1.The problem is to create a program that uses the setTimeout() function to reverse a given string after a delay of 2 seconds. The program should use a variable “input” storing a string as input and then implement a delay of 2 seconds before reversing the string. The reversed string should then be printed as output.
+
+Sol:
+// Function to reverse a string
+function reverseString(input) {
+    return input.split("").reverse().join("");
+}
+
+// Input string
+var input = "Hello, World!";
+
+// Delay function using setTimeout
+function delayReverse() {
+    setTimeout(function() {
+        // Reverse the input string
+        var reversedString = reverseString(input);
+
+        // Print the reversed string
+        console.log("Original String: " + input);
+        console.log("Reversed String after 2 seconds: " + reversedString);
+    }, 2000); // 2000 milliseconds = 2 seconds
+}
+
+// Call the delayReverse function
+delayReverse();
+
+2.The goal of this program is to generate a random number after a delay of 3 seconds, and store the delay in a
+variable so can be modified. The program displays a message every second indicating the time remaining
+until the random number is generated and then outputs the generated number.
+
+Sol:
+// Variable to store the delay in seconds
+var delayInSeconds = 3;
+
+// Function to generate a random number after a delay
+function generateRandomNumberWithDelay() {
+    // Display countdown messages
+    for (let i = delayInSeconds; i > 0; i--) {
+        setTimeout(function() {
+            console.log("Time remaining: " + i + " seconds");
+        }, (delayInSeconds - i) * 1000); // Multiply by 1000 to convert seconds to milliseconds
+    }
+
+    // Generate and display the random number after the delay
+    setTimeout(function() {
+        var randomNumber = Math.floor(Math.random() * 100); // Change the range as needed
+        console.log("Random number generated: " + randomNumber);
+    }, delayInSeconds * 1000); // Multiply by 1000 to convert seconds to milliseconds
+}
+
+// Call the function to generate random number with delay
+generateRandomNumberWithDelay();
+
+3.Suppose a store has a list of items and their prices in US Dollars stored as an object. Create a JavaScript
+program to convert the prices to Indian Rupees using an exchange rate of 1 USD to 80 INR. The program should
+use the map higher-order function to create a new object with the converted prices in Rupees.
+
+Sol:
+// Object containing items and their prices in USD
+var itemsPricesInUSD = {
+    item1: 20,
+    item2: 35,
+    item3: 45,
+    item4: 10,
+};
+
+// Function to convert prices to Indian Rupees
+function convertToRupees(priceInUSD) {
+    const exchangeRate = 80;
+    return priceInUSD * exchangeRate;
+}
+
+// Use the map function to create a new object with prices in INR
+var itemsPricesInINR = Object.fromEntries(
+    Object.entries(itemsPricesInUSD).map(([item, priceInUSD]) => [item, convertToRupees(priceInUSD)])
+);
+
+// Display the original and converted prices
+console.log("Original Prices in USD:", itemsPricesInUSD);
+console.log("Converted Prices in INR:", itemsPricesInINR);
+
+4.Write a program that takes a list of books, including their authors and publication years as input. The program
+should then filter out all books that were published before 2010 and create a new array with the remaining
+books, but with their author names capitalized.
+
+Sol:
+// Sample list of books with authors and publication years
+var books = [
+    { title: 'Book1', author: 'author1', year: 2005 },
+    { title: 'Book2', author: 'author2', year: 2012 },
+    { title: 'Book3', author: 'author3', year: 2008 },
+    { title: 'Book4', author: 'author4', year: 2015 },
+];
+
+// Function to filter and capitalize
+function filterAndCapitalize(books) {
+    const currentYear = new Date().getFullYear();
+    return books
+        .filter(book => book.year >= 2010)
+        .map(book => {
+            // Capitalize the author name
+            book.author = book.author.charAt(0).toUpperCase() + book.author.slice(1);
+            return book;
+        });
+}
+
+// Use the function to filter and capitalize
+var filteredBooks = filterAndCapitalize(books);
+
+// Display the original and filtered books
+console.log("Original Books:", books);
+console.log("Filtered Books (published after 2010 with capitalized authors):", filteredBooks);
+
+5.Write a program using a regex that matches valid URLs. Valid URLs should start with either http:// or https://,
+followed by one or more letters, digits, or special characters, followed by a dot, followed by one or more letters.Print a message indicating if the input matches the conditions or not.
+
+Sol:
+// Function to check if a URL is valid
+function isValidURL(url) {
+    // Regular expression for valid URLs
+    const urlRegex = /^(http|https):\/\/[a-zA-Z0-9\-._~:/?#[\]@!$&'()*+,;=]+[a-zA-Z]+$/;
+
+    // Test the URL against the regex
+    return urlRegex.test(url);
+}
+
+// Test cases
+const url1 = "http://www.example.com";
+const url2 = "https://subdomain.example123.org";
+const url3 = "ftp://invalidurl.com";
+
+// Check and print messages
+console.log(`"${url1}" is ${isValidURL(url1) ? "valid" : "invalid"} URL.`);
+console.log(`"${url2}" is ${isValidURL(url2) ? "valid" : "invalid"} URL.`);
+console.log(`"${url3}" is ${isValidURL(url3) ? "valid" : "invalid"} URL.`);
+
+6.As a developer, you want to create a program that validates LinkedIn profile URLs to ensure that they are
+formatted correctly and contain only valid characters. Valid LinkedIn profile URLs should start with https://
+www.linkedin.com/in/ followed by a combination of one or more letters, digits, underscores, or hyphens, and
+end with a letter or digit. The length of the profile ID should be between 5 and 30 characters.
+The program should use a regular expression to match valid LinkedIn profile URLs, and should not match URLs
+that do not follow this format or contain invalid characters. The program should provide clear output messages indicating whether each input is a valid LinkedIn profile URL or not.
+
+Sol:// Function to check if a LinkedIn profile URL is valid
+function isValidLinkedInURL(url) {
+    // Regular expression for valid LinkedIn profile URLs
+    const linkedInURLRegex = /^https:\/\/www\.linkedin\.com\/in\/[a-zA-Z0-9_-]{5,30}[a-zA-Z0-9]$/;
+
+    // Test the URL against the regex
+    return linkedInURLRegex.test(url);
+}
+
+// Test cases
+const url1 = "https://www.linkedin.com/in/johndoe123";
+const url2 = "https://www.linkedin.com/in/jane-smith";
+const url3 = "https://www.linkedin.com/in/user%20name";
+const url4 = "https://www.linkedin.com/in/short";
+const url5 = "https://www.linkedin.com/profile/johndoe";
+
+// Check and print messages
+console.log(`"${url1}" is ${isValidLinkedInURL(url1) ? "valid" : "invalid"} LinkedIn profile URL.`);
+console.log(`"${url2}" is ${isValidLinkedInURL(url2) ? "valid" : "invalid"} LinkedIn profile URL.`);
+console.log(`"${url3}" is ${isValidLinkedInURL(url3) ? "valid" : "invalid"} LinkedIn profile URL.`);
+console.log(`"${url4}" is ${isValidLinkedInURL(url4) ? "valid" : "invalid"} LinkedIn profile URL.`);
+console.log(`"${url5}" is ${isValidLinkedInURL(url5) ? "valid" : "invalid"} LinkedIn profile URL.`);
